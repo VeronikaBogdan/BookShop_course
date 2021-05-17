@@ -1,9 +1,10 @@
 import './App.css';
 import React from 'react';
 import Best from './components/BestSeller';
-/*import Tour from './components/Tour'
-import logo from "./img/Logo.png";*/
+import New from './components/New';
 import HP_SR from "./img/HarryPotter_SecretRoom.png"
+import moment from 'moment'
+import Moment from 'react-moment';
 import {
   BrowserRouter as Router,
   Switch,
@@ -27,9 +28,9 @@ function App() {
         <nav class="menu" style={{display: 'flex'}}>
           <ul class="active" style= {{fontSize: '100%' ,display: 'flex'}}>
             <Link to={'/'}><li><a href="#" class="text-danger" style={{fontSize: '100%', flex: 1, color: '#a94442'}}><strong>Главная</strong></a></li></Link>
-            <Link to={'/book'}><li><a style={{fontSize: '100%', flex: 1, color: '#a94442'}}>Бестселлеры</a></li></Link>
-            <Link to={'/book'}><li><a style={{fontSize: '100%', flex: 1, color: '#a94442'}}>Главные новинки</a></li></Link>
-            <li><a  style={{fontSize: '100%', flex: 1, color: '#a94442'}}>Художественная литература</a></li>
+            <Link to={'/book/bestsellers'}><li><a style={{fontSize: '100%', flex: 1, color: '#a94442'}}>Бестселлеры</a></li></Link>
+            <Link to={'/book/new_books'}><li><a style={{fontSize: '100%', flex: 1, color: '#a94442'}}>Главные новинки</a></li></Link>
+            <Link to={'/book/bestsellers'}><li><a  style={{fontSize: '100%', flex: 1, color: '#a94442'}}>Художественная литература</a></li></Link>
             <li><a style={{fontSize: '100%', flex: 1, color: '#a94442'}}>Нехудожественная литература</a></li>
             <li><a style={{fontSize: '100%', flex: 1, color: '#a94442'}}>Фэнтэзи и фантастика</a></li>
             <li><a style={{fontSize: '100%', flex: 1, color: '#a94442'}}>Детская литература</a></li>
@@ -41,13 +42,18 @@ function App() {
       <div className="App">
         <section>
           <Switch>
-            <Route path="/book">
-              <div class="palka" style={{fontSize: ' 30px', color: '#FFD600', backgroundColor: 'brown', textAlign: 'left', paddingLeft: '30px', marginBottom: '10px'}}>Бестселлеры</div>
+            <Route path="/book/bestsellers">
+              <div class="palka" style={{fontSize: ' 30px', color: '#FFD600', backgroundColor: 'brown', textAlign: 'left', paddingLeft: '30px', marginBottom: '10px'}}>Бестселлеры на <Moment format="YYYY/MM/DD"></Moment></div>
               <Best />
               
             </Route>
+            <Route path="/book/new_books">
+              <div class="palka" style={{fontSize: ' 30px', color: '#FFD600', backgroundColor: 'brown', textAlign: 'left', paddingLeft: '30px', marginBottom: '10px'}}>Главные новинки на <Moment format="LLLL"></Moment></div>
+              <New />
+              
+            </Route>
             <Route path="/">
-            <div class="palka" style={{fontSize: '30px', color: '#FFD600', backgroundColor: 'brown',  texAalign: 'left', paddingLeft: '0px', marginBottom: '10px'}}>Популярная литература</div>
+            <div class="palka" style={{fontSize: '30px', color: '#FFD600', backgroundColor: 'brown',  texAalign: 'left', paddingLeft: '0px', marginBottom: '10px'}}>Популярная литература <Moment format="YYYY/MM/DD"></Moment></div>
             <div   class="main" style={{display: 'flex', flexWrap: 'wrap'}}>
               <div class="text2" style={{flex: 1}}>				
                 <a href="#"><img class="img2" src="https://img1.wbstatic.net/big/new/2350000/2350125-1.jpg" title="Цветы для Эджернона" alt="Цветы для Эджернона" /></a>
@@ -104,7 +110,7 @@ function App() {
             </Route>
           </Switch>
           <Route path="/book">
-              <Redirect to="/book/fantasy" />
+              <Redirect to="/book" />
           </Route>
         </section>      
       </div> 
