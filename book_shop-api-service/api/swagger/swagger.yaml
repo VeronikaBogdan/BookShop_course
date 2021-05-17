@@ -1,0 +1,103 @@
+swagger: "2.0"
+info:
+  version: "0.1.0"
+  title: Book Shop Service
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths 
+basePath: /api/v1
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /shop:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: shop-controller
+    get:
+      description: Returns list of books
+      # used as the method name of the controller
+      operationId: shop
+      parameters:
+        - name: date
+          in: query
+          description: Filtering date
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/BookResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /Book/{date}:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: dino-controller
+    get:
+      description: Returns info on certain dino
+      # used as the method name of the controller
+      operationId: Dino
+      parameters:
+        - name: date
+          in: path
+          description: target date
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/BookResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"   
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  BookResponse:
+      type: array
+      items:
+        $ref:  "#/definitions/book"
+        
+  book:
+    properties:
+      name:
+        type: string
+      number:
+        type: string 
+      year:
+        type: string
+      text:
+        type: string 
+      fName:
+        type: string 
+      price:
+        type: string 
+      color:
+        type: string 
+      
+
+
+
+        
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
